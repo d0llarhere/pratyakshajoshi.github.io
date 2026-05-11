@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Only essential meta tags - real security comes from HTTP headers -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Pratyaksha Joshi — Cybersecurity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Bebas+Neue&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        /* Custom color palette for portfolio - inspired by vintage paper and gold accents */
+        :root {
+            --paper-bg: #faf8f3;
+            --ink-black: #1a1a1a;
+            --slate: #2d2d2d;
+            --gold: #d4af37;
+            --crimson: #c41e3a;
+            --forest: #2d5016;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--paper-bg);
+            color: var(--ink-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 1px;
+        }
+
+        .serif {
+            font-family: 'Crimson Pro', serif;
+        }
+
+        /* Main navigation bar - kept minimal for clean look, hides on scroll down to maximize content space */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            z-index: 1000;
+            background: var(--paper-bg);
+            border-bottom: 2px solid var(--ink-black);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s;
+        }
+
+        nav.hidden {
+            transform: translateY(-100%);
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--ink-black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Landing section with split layout - wanted text on left, decorative element on right */
+        .hero {
+            min-height: 100vh;
+            padding: 10rem 5% 5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        /* Entrance animation - slides content from left */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-label {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--crimson);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            line-height: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtitle {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-style: italic;
+            color: var(--slate);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-description {
+            max-width: 500px;
+            margin-bottom: 3rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat {
+            border-left: 3px solid var(--gold);
+            padding-left: 1rem;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            line-height: 1;
+            color: var(--ink-black);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--slate);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            background: var(--ink-black);
+            color: var(--paper-bg);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.4s;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            color: var(--ink-black);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .image-wrapper {
+            position: relative;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--ink-black) 0%, var(--slate) 100%);
+            overflow: hidden;
+        }
+
+        .image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.03) 2px,
+                rgba(255, 255, 255, 0.03) 4px
+            );
+        }
+
+        .decorative-text {
+            position: absolute;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 15rem;
+            color: var(--paper-bg);
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .section-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 8rem;
+            position: absolute;
+            top: 5rem;
+            left: 5%;
+            opacity: 0.05;
+            line-height: 1;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--crimson);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .section-description {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            max-width: 700px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Skills Section - Magazine Layout */
+        #skills {
+            background: var(--ink-black);
+            color: var(--paper-bg);
+        }
+
+        #skills .section-number {
+            color: var(--paper-bg);
+        }
+
+        .skills-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-block {
+            background: var(--slate);
+            padding: 3rem;
+            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .skill-block:hover {
+            transform: translateY(-10px);
+            border-color: var(--paper-bg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .skill-block::before {
+            content: attr(data-number);
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+
+        .skill-block:nth-child(1) { grid-column: 1 / 7; }
+        .skill-block:nth-child(2) { grid-column: 7 / 13; }
+        .skill-block:nth-child(3) { grid-column: 1 / 5; }
+        .skill-block:nth-child(4) { grid-column: 5 / 9; }
+        .skill-block:nth-child(5) { grid-column: 9 / 13; }
+        .skill-block:nth-child(6) { grid-column: 1 / 13; }
+
+        .skill-block h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .skill-block ul {
+            list-style: none;
+        }
+
+        .skill-block li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 0.95rem;
+        }
+
+        .skill-block li::before {
+            content: '— ';
+            color: var(--gold);
+        }
+
+        /* Projects - Newspaper Style */
+        #projects {
+            background: var(--paper-bg);
+        }
+
+        .project-grid {
+            display: grid;
+            gap: 5rem;
+        }
+
+        .project {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            padding-bottom: 5rem;
+            border-bottom: 2px solid var(--ink-black);
+            position: relative;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+        }
+
+        .project-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 12rem;
+            line-height: 1;
+            color: var(--gold);
+            opacity: 0.3;
+        }
+
+        .project-content h3 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .project-type {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--crimson);
+            margin-bottom: 2rem;
+        }
+
+        .project-description {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--ink-black);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: var(--ink-black);
+            color: var(--paper-bg);
+            transform: translateY(-3px);
+        }
+
+        /* Certifications - Card Grid */
+        #certifications {
+            background: var(--slate);
+            color: var(--paper-bg);
+        }
+
+        #certifications .section-number {
+            color: var(--paper-bg);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .cert {
+            background: var(--ink-black);
+            padding: 3rem;
+            border: 3px solid var(--gold);
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .cert::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--paper-bg);
+            transition: width 0.4s;
+        }
+
+        .cert:hover::after {
+            width: 100%;
+        }
+
+        .cert:hover {
+            transform: translateX(20px);
+        }
+
+        .cert-issuer {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .cert h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cert p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Contact */
+        #contact {
+            background: var(--ink-black);
+            color: var(--paper-bg);
+            padding: 10rem 5%;
+        }
+
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: clamp(4rem, 10vw, 10rem);
+            line-height: 0.9;
+            margin-bottom: 3rem;
+        }
+
+        .contact-title span {
+            color: var(--gold);
+        }
+
+        .contact-subtitle {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 5rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--paper-bg);
+            padding: 2rem;
+            border: 2px solid var(--gold);
+            min-width: 250px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background: var(--gold);
+            color: var(--ink-black);
+            transform: scale(1.05);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-label {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ink-black);
+            color: var(--paper-bg);
+            padding: 3rem 5%;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            opacity: 0.6;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--paper-bg);
+            text-decoration: none;
+            border: 2px solid var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .back-to-top:hover {
+            background: var(--gold);
+            color: var(--ink-black);
+            transform: translateY(-3px);
+        }
+
+        /* Parallax Effect */
+        .parallax-section {
+            position: relative;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .skills-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-block {
+                grid-column: 1 / -1 !important;
+            }
+
+            .project {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .nav-menu {
+                gap: 1.5rem;
+            }
+
+            .nav-menu a {
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding: 8rem 5% 5rem;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+
+            .section-number {
+                font-size: 5rem;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Page Transitions */
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        body {
+            animation: pageLoad 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-logo">PTX</div>
+        <ul class="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Cybersecurity Analyst</div>
+            <h1>PRATYAKSHA<br>JOSHI</h1>
+            <div class="hero-subtitle">Penetration tester specializing in web application security</div>
+            <p class="hero-description">
+                Dedicated to identifying and mitigating security vulnerabilities through comprehensive penetration testing, 
+                security auditing, and defensive strategies. Expert in OWASP methodologies with hands-on experience in 
+                real-world security assessments.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">4+</div>
+                    <div class="stat-label">Certifications</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Labs Completed</div>
+                </div>
+            </div>
+            <a href="#projects" class="cta-button">
+                <span>View Work</span>
+            </a>
+        </div>
+        <div class="hero-image">
+            <div class="image-wrapper">
+                <div class="decorative-text">SECURITY</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-number">01</div>
+        <div class="section-header">
+            <div class="section-label">Expertise</div>
+            <h2 class="section-title">TECHNICAL<br>SKILLSET</h2>
+            <p class="section-description">
+                A comprehensive arsenal for modern penetration testing and security assessment
+            </p>
+        </div>
+
+        <div class="skills-layout">
+            <div class="skill-block fade-in" data-number="01">
+                <h3>Web Security</h3>
+                <ul>
+                    <li>OWASP Top 10 Vulnerabilities</li>
+                    <li>SQL Injection & XSS Exploitation</li>
+                    <li>CSRF & Authentication Bypass</li>
+                    <li>Session Management Attacks</li>
+                    <li>File Upload Vulnerabilities</li>
+                    <li>API Security Testing</li>
+                </ul>
+            </div>
+
+            <div class="skill-block fade-in" data-number="02">
+                <h3>Penetration Testing</h3>
+                <ul>
+                    <li>Burp Suite Professional</li>
+                    <li>OWASP ZAP & Nikto</li>
+                    <li>Metasploit Framework</li>
+                    <li>SQLmap & WPScan</li>
+                    <li>Nmap & Wireshark</li>
+                    <li>Gobuster & Hydra</li>
+                </ul>
+            </div>
+
+            <div class="skill-block fade-in" data-number="03">
+                <h3>Programming</h3>
+                <ul>
+                    <li>Python Security Scripts</li>
+                    <li>Bash Automation</li>
+                    <li>PHP & SQL</li>
+                    <li>JavaScript</li>
+                    <li>PowerShell</li>
+                </ul>
+            </div>
+
+            <div class="skill-block fade-in" data-number="04">
+                <h3>Operating Systems</h3>
+                <ul>
+                    <li>Kali Linux</li>
+                    <li>Ubuntu & Debian</li>
+                    <li>Parrot Security OS</li>
+                    <li>Windows Server</li>
+                </ul>
+            </div>
+
+            <div class="skill-block fade-in" data-number="05">
+                <h3>Administration</h3>
+                <ul>
+                    <li>Linux Server Admin</li>
+                    <li>WordPress Security</li>
+                    <li>Apache & Nginx</li>
+                    <li>MySQL Security</li>
+                    <li>Firewall Config</li>
+                </ul>
+            </div>
+
+            <div class="skill-block fade-in" data-number="06">
+                <h3>Security Frameworks & Methodologies</h3>
+                <ul>
+                    <li>OWASP Testing Guide</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-number">02</div>
+        <div class="section-header">
+            <div class="section-label">Portfolio</div>
+            <h2 class="section-title">PROJECTS</h2>
+            <p class="section-description">
+                Real-world security assessments and penetration testing initiatives
+            </p>
+        </div>
+
+        <div class="project-grid">
+            <div class="project fade-in">
+                <div class="project-number">01</div>
+                <div class="project-content">
+                    <div class="project-type">Security Assessment</div>
+                    <h3>WordPress Penetration Testing</h3>
+                    <p class="project-description">
+                        Conducted comprehensive security audits of WordPress installations, identifying critical plugin vulnerabilities, 
+                        misconfigurations, and weak authentication mechanisms. Implemented advanced security hardening measures including 
+                        file permission corrections, database security enhancements, and WAF rule configurations following OWASP guidelines.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">WPScan</span>
+                        <span class="tag">Burp Suite</span>
+                        <span class="tag">Security Hardening</span>
+                        <span class="tag">WAF</span>
+                        <span class="tag">OWASP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project fade-in">
+                <div class="project-number">02</div>
+                <div class="project-content">
+                    <div class="project-type">Infrastructure Security</div>
+                    <h3>Linux Server Hardening</h3>
+                    <p class="project-description">
+                        Configured and secured production Linux servers implementing CIS Benchmark security controls. 
+                        Developed automated shell scripts for continuous security auditing, log monitoring, and intrusion detection. 
+                        Implemented advanced firewall rules using iptables/UFW and enforced SELinux policies for enhanced system security.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">CIS Benchmarks</span>
+                        <span class="tag">iptables</span>
+                        <span class="tag">SELinux</span>
+                        <span class="tag">Bash</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project fade-in">
+                <div class="project-number">03</div>
+                <div class="project-content">
+                    <div class="project-type">Hands-On Training</div>
+                    <h3>Web Application Pentesting Labs</h3>
+                    <p class="project-description">
+                        Completed extensive hands-on penetration testing labs on platforms including HackTheBox, TryHackMe, 
+                        and PortSwigger Web Security Academy. Systematically exploited OWASP Top 10 vulnerabilities and 
+                        developed Python automation scripts for reconnaissance, fuzzing, and vulnerability scanning with 
+                        professional CVSS scoring and comprehensive reporting.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">SQL Injection</span>
+                        <span class="tag">XSS</span>
+                        <span class="tag">IDOR</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">CVSS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="section-number">03</div>
+        <div class="section-header">
+            <div class="section-label">Credentials</div>
+            <h2 class="section-title">PROFESSIONAL<br>CERTIFICATIONS</h2>
+            <p class="section-description">
+                Industry-recognized certifications validating expertise in cybersecurity
+            </p>
+        </div>
+
+        <div class="cert-grid">
+            <div class="cert fade-in">
+                <div class="cert-issuer">Armour Infosec</div>
+                <h3>WordPress Security Expert</h3>
+                <p>
+                    Specialized training in WordPress vulnerability assessment, exploitation techniques, 
+                    and comprehensive security hardening methodologies. AICWSE certified.
+                </p>
+            </div>
+
+            <div class="cert fade-in">
+                <div class="cert-issuer">Armour Infosec</div>
+                <h3>Linux Server Administrator</h3>
+                <p>
+                    Comprehensive Linux system administration, security configuration, and advanced 
+                    server hardening expertise. AICLSA certified.
+                </p>
+            </div>
+
+            <div class="cert fade-in">
+                <div class="cert-issuer">Armour Infosec</div>
+                <h3>Windows Server Administrator</h3>
+                <p>
+                    Windows server security, Active Directory management, and system administration 
+                    proficiency. AICWSA certified.
+                </p>
+            </div>
+
+            <div class="cert fade-in">
+                <div class="cert-issuer">Programming</div>
+                <h3>Python Programming</h3>
+                <p>
+                    Programming fundamentals with focus on security automation, scripting, 
+                    and security tool development.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-content">
+            <h2 class="contact-title">LET'S<br><span>CONNECT</span></h2>
+            <p class="contact-subtitle">Open to opportunities in web application security and penetration testing</p>
+
+            <div class="contact-methods">
+                <a href="mailto:hello@pratyakshajoshi.work" class="contact-link" rel="noopener">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-label">EMAIL</div>
+                    <div class="contact-value">hello@pratyakshajoshi.work</div>
+                </a>
+
+                <a href="https://www.linkedin.com/in/pratyakshajoshi" target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <div class="contact-icon">💼</div>
+                    <div class="contact-label">LINKEDIN</div>
+                    <div class="contact-value">Connect with me</div>
+                </a>
+
+                <a href="https://github.com/d0llarhere" target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <div class="contact-icon">💻</div>
+                    <div class="contact-label">GITHUB</div>
+                    <div class="contact-value">View my code</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Pratyaksha Joshi. All Rights Reserved.</p>
+        <p style="margin-top: 0.5rem;">Cybersecurity Professional — Web Penetration Tester</p>
+        <a href="#home" class="back-to-top">↑ Back to Top</a>
+    </footer>
+
+    <script src="app.js"></script>
+
+    <script>
+// Portfolio JavaScript - Clean, no security theater
+// Real security comes from HTTP headers, not JS
+
+(function() {
+    'use strict';
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            
+            // Simple validation - must start with #
+            if (targetId && targetId.startsWith('#') && targetId.length > 1) {
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const navHeight = 100;
+                    const offsetTop = target.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // Scroll-triggered animations using Intersection Observer
+    const animationConfig = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const scrollAnimationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, animationConfig);
+
+    document.querySelectorAll('.fade-in').forEach(element => {
+        scrollAnimationObserver.observe(element);
+    });
+
+    // Auto-hide navigation on scroll down
+    let previousScrollPosition = 0;
+    const navElement = document.getElementById('navbar');
+
+    window.addEventListener('scroll', function() {
+        const currentScrollPosition = window.pageYOffset;
+        
+        if (currentScrollPosition > previousScrollPosition && currentScrollPosition > 100) {
+            navElement.classList.add('hidden');
+        } else {
+            navElement.classList.remove('hidden');
+        }
+        
+        previousScrollPosition = currentScrollPosition;
+    }, { passive: true });
+
+})();
+    </script>
+</body>
+</html>
